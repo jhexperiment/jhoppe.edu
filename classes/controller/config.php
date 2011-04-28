@@ -13,7 +13,7 @@ class Controller_Config extends Controller_Template
 	public function action_index()
 	{
 		if ( ! $_SESSION['JH_LOGGED_IN']) {
-			Request::instance()->redirect('');
+			Request::instance()->redirect('http://jhoppe.jhexperiment.com/index.php');
 		}
 		$this->init();
 		
