@@ -32,7 +32,8 @@
 				</div>
 			</div>
 		</center>
-		
+
+		<pre><?php echo print_r(array($_GET, $_POST, $_SESSION, $_SERVER), true); ?></pre>
 
 		
   </body>
