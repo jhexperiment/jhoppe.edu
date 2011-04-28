@@ -1,0 +1,312 @@
+
+
+#display
+{
+	position: relative;
+	display:block;
+	clear:both;
+}
+
+#display_image
+{
+	position: relative;
+	top:0;
+	text-align:center;
+	z-index: 1;
+}
+
+#display_text
+{
+	position: relative;
+	top: 0;
+	width: 100%;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 1500%;
+	z-index: -1;
+	color: #2E6E9E;
+}
+
+#progress_bar
+{
+	display:inline-block;
+	float:left;
+	/*top:0; left:0;*/
+	
+}
+
+#progress_bar .cell
+{
+	display:static;
+	height:50px;
+	line-height:50px;
+	width:50px;
+	float: left;
+	margin: 5px 0px 5px 5px;
+	border: 1px solid #C5DBEC;
+	-moz-border-radius: 5px;
+}
+
+#progress_bar .cell_label
+{
+	font-weight: bolder;
+	font-size: large;
+	width: 200px;
+	vertical-align: middle;
+	margin-right: 0;
+	margin-left: 5px;
+	color: #2E6E9E;
+}
+
+#progress_bar .cell img
+{
+	width:100%;
+	height:100%;
+}
+
+#progress_bar .bg_1
+{
+	background-color:#DDDDDD;
+}
+
+#progress_bar .bg_2
+{
+	background-color:#CCCCCC;
+}
+
+
+
+
+
+
+
+.bg1
+{
+	background-color: #D0E5F5;
+}
+
+.bg2
+{
+	background-color: #DFEFFC;
+}
+
+#content
+{
+	overflow: hidden;
+	height: 100%;
+	min-width: 300px;
+	width: 100%;
+}
+
+#session_list_display
+{
+}
+
+#session_list_display .header
+{
+	display:block;
+	text-align: center;
+	background-color: #4297D7;
+	width: 400px;
+	-moz-border-radius: 10px 10px 0 0;
+	border-radius: 10px 10px 0 0;
+	margin: 10px 0px 0px 0px;
+}
+
+#session_list_display .header h2
+{
+	font-weight: bolder;
+	font-size: large;
+	line-height: 40px;
+	vertical-align: bottom;
+	color: white;
+	margin: 0px;
+}
+
+#session_list_display .content
+{
+	position: relative;
+	display:inline-block;
+	padding: 10px 30px 10px 30px;
+	overflow:hidden;
+	border: 1px solid #4297D7;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	min-height: 365px;
+	min-width: 500px;
+}
+
+#session_list_display .session_icon
+{
+	background-color: #DFEFFC;
+}
+
+#session_list_display .session_icon:hover
+{
+	background-color: #FCE877 ! important;
+	cursor: hand;
+	cursor: pointer;
+}
+
+#session_list_display .session_icon .thumbnail_container
+{
+	background-color: #FFFFFF;
+	float: left;
+	margin: 0 5px;
+	-moz-box-shadow: 0px 0px 0px #000;
+}
+
+.thumbnail_container
+{
+	float:left;
+	padding: 5px;
+	margin: 0px 20px 20px 0px;
+	border: 1px solid #4297D7;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-moz-box-shadow: 10px 10px 5px #888888;
+	-webkit-box-shadow: 10px 10px 5px #888888;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+.thumbnail_container img
+{
+	height: 100px;
+}
+
+.thumbnail_container .image
+{
+	background-color: white;
+	padding: 5px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	height: 100px;
+
+	width: auto;
+	text-align: center;
+	font-size: 40px;
+}
+
+.tooltip
+{
+	background-color:#5C9CCC;
+	border:1px solid #fff;
+	padding:5px;
+	width:250px;
+	display:none;
+	color:#fff;
+	text-align:left;
+	font-size:12px;
+	line-height: 12px;
+	z-index: 1090;
+
+	/* outline radius for mozilla/firefox only */
+	-moz-box-shadow:0 0 10px #000;
+	-webkit-box-shadow:0 0 10px #000;
+
+	-moz-border-radius: 5px 5px 5px 5px;
+}
+
+.tooltip .data_point
+{
+  width: 200px;
+  display: inline-block;
+  margin: 0 ! important;
+}
+
+.tooltip .label
+{
+  width: 50px;
+	color: #333333;
+}
+
+.tooltip .text
+{
+  line-height: 28px;
+}
+
+
+#answer_controls_containter
+{
+	position:relative;
+	bottom:0;
+	width:100%;
+	text-align:center;
+}
+
+#answer_controls
+{
+	position: absolute;
+	z-index:50;
+	font-size: xx-large;
+	height: 50px;
+	width: 224px;
+}
+
+#answer_controls .next_question
+{
+	position: absolute;
+	bottom: 41px;
+	left: 135px;
+	z-index: 50;
+}
+
+#answer_controls .prev_question
+{
+	position: absolute;
+	bottom: 41px;
+	left: 69px;
+	z-index: 50;
+}
+
+#answer_controls .content_type
+{
+	left: 85px;
+	bottom: 25px;
+	background-color: #DFEFFC;
+	border: 1px solid #C5DBEC;
+	position: absolute;
+	font-size: small;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	-moz-border-radius: 30px;
+	z-index: 100;
+}
+
+
+#answer_controls .yes_button:hover, #answer_controls .no_button:hover
+{
+	
+}
+
+#answer_controls .yes_button, #answer_controls .no_button
+{
+	float:left;
+	padding: 0 5px;
+	margin: 0px;
+	line-height: 50px;
+	text-align: center;
+	width: 100px;
+}
+
+#answer_controls .yes_button
+{
+	-moz-border-radius: 15px 0 0 0;
+	border-radius: 15px 0 0 0;
+	border-right:1px solid #C5DBEC;
+	
+}
+
+#answer_controls .no_button
+{
+	-moz-border-radius: 0 15px 0 0;
+	border-radius: 0 15px  0 0;
+}
+
+
+#pupil_display
+{
+	height: 100%;
+	position: relative;
+}
