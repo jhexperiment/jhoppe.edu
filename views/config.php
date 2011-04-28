@@ -25,8 +25,8 @@
 				<div id="tutor_tab" class="tab">Tutor</div>
 				<div id="image_tab" class="tab">Image</div>
 				<div id="lesson_tab" class="tab">Lesson</div>
-				<div id="lessonplan_tab" class="tab">Lesson Plan</div>
-				<div id="class_tab" class="tab">Class</div>
+				<div id="lessonplan_tab" class="tab" style="display:none">Lesson Plan</div>
+				<div id="class_tab" class="tab" style="display:none">Class</div>
 				<div id="session_tab" class="tab last_tab">Session</div>
 
 			</div>
