@@ -1,8 +1,5 @@
 <html>
   <head>
-    <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
-    <link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print">	
-    <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
     <link rel="stylesheet" href="css/login.css" type="text/css">
   </head>
  
@@ -10,7 +7,7 @@
     <form name="formLogin" method="POST">
       <div class="vertSpacer"></div>
       <div id="logoBox">
-        <div><img id="mainLogo" src="http://www.jhexperiment.com/images/mainLogoInverted.jpg"></div>
+        <div><img id="mainLogo" src="images/logo.jpg"></div>
       </div>
       <div id="loginBox">
         <div>User:&nbsp;<input type="text" id="username" name="username"></div>
