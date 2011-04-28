@@ -12,6 +12,9 @@ class Controller_Config extends Controller_Template
 
 	public function action_index()
 	{
+		if ( ! $_SESSION['JH_LOGGED_IN']) {
+			Request::instance()->redirect("login");
+		}
 		$this->init();
 		
 		$data = array();
