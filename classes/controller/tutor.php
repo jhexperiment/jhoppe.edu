@@ -6,6 +6,12 @@ class Controller_Tutor extends Controller_Template
 
 	public function action_index()
 	{
+		session_start();
+		if ( ! $_SESSION['JH_LOGGED_IN']) {
+			Request::instance()->redirect('login');
+		}
+		
+
 		switch ($_REQUEST['action'])
 		{
 			case 'get_list':

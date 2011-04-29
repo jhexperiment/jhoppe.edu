@@ -9,6 +9,13 @@ class Controller_Pupil extends Controller_Template {
 
 	public function action_index()
 	{
+
+		session_start();
+		if ( ! $_SESSION['JH_LOGGED_IN']) {
+			Request::instance()->redirect('login');
+		}
+		
+
 		$data = array();
 		switch ($_REQUEST['action'])
 		{
