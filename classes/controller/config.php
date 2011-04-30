@@ -208,7 +208,6 @@ class Controller_Config extends Controller_Template
 			$image_info['name'] = $arrFiles['name'][$i];
 			$image_info['url'] = '/images/uploads/';
 			$image_info['path'] = '/web_root/images/uploads/';
-			$image_info['icon'] = "{$image_info['url']}{$image_info['name']}";
 			//$image_info['url'] = mysql_real_escape_string('/images/uploads/');
 			//$image_info['path'] = mysql_real_escape_string('/web_root/images/uploads/');
 
@@ -218,6 +217,8 @@ class Controller_Config extends Controller_Template
 								->values(array_values($image_info))
 								->execute();
 			$image_info['id'] = $ret[0];
+			$image_info['icon'] = "{$image_info['url']}{$image_info['name']}";
+			
 			/*
 			$db = Database::instance('default');
 			$sql = "INSERT INTO Images
