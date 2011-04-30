@@ -4,7 +4,7 @@ $(document).ready(function()
 
 	$(window).load(function()
 	{
-		$("#lesson_tab").click();
+		$("#image_tab").click();
 	});
 });
 
