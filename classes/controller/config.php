@@ -200,41 +200,27 @@ class Controller_Config extends Controller_Template
 
 	private function uploadFile($file_info)
 	{
-		//echo print_r($_GET, $_POST, $_FILES, $_SERVER);
-		if (move_uploaded_file($file_info['tmp_name'], $this->_image_upload_dir . $file_info['name']))
-		{
-			$image_info = array();
+		if (preg_match('/.*(jpg|png|gif|jpeg)$/', $file_info['name'])) {
 
-			$image_info['name'] = $file_info['name'];
-			$image_info['url'] = '/images/uploads/';
-			$image_info['path'] = '/web_root/images/uploads/';
-			//$image_info['url'] = mysql_real_escape_string('/images/uploads/');
-			//$image_info['path'] = mysql_real_escape_string('/web_root/images/uploads/');
+			if (move_uploaded_file($file_info['tmp_name'], $this->_image_upload_dir . $file_info['name'])) {
+				$image_info = array();
 
+				$image_info['name'] = $file_info['name'];
+				$image_info['url'] = '/images/uploads/';
+				$image_info['path'] = '/web_root/images/uploads/';
+				
+				$ret = DB::insert('Images')
+									->columns(array_keys($image_info))
+									->values(array_values($image_info))
+									->execute();
+				$image_info['id'] = $ret[0];
+				$image_info['icon'] = "{$image_info['url']}{$image_info['name']}";
 
-			$ret = DB::insert('Images')
-								->columns(array_keys($image_info))
-								->values(array_values($image_info))
-								->execute();
-			$image_info['id'] = $ret[0];
-			$image_info['icon'] = "{$image_info['url']}{$image_info['name']}";
-			
-			/*
-			$db = Database::instance('default');
-			$sql = "INSERT INTO Images
-								(name, url, path)
-							VALUES
-								('{$image_info['name']}', '{$image_info['url']}', '{$image_info['path']}')";
-			list($index, $row_count) = $db->query(DATABASE::INSERT, $sql, FALSE);
-			$image_info['id'] = $index;
-			 * /
-			 */
-			
-			return json_encode($image_info);
-		}
-		else
-		{
-			return "0";
+				return json_encode($image_info);
+			}
+			else {
+				return "0";
+			}
 		}
 	}
 
