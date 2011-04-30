@@ -200,6 +200,7 @@ class Controller_Config extends Controller_Template
 
 	private function uploadFile($file_info)
 	{
+		echo print_r($_GET, $_POST, $_FILES, $_SERVER);
 		if (move_uploaded_file($file_info['tmp_name'], $this->_image_upload_dir . $file_info['name']))
 		{
 			$image_info = array();
@@ -208,7 +209,9 @@ class Controller_Config extends Controller_Template
 			$image_info['url'] = mysql_real_escape_string('/images/uploads/');
 			$image_info['path'] = mysql_real_escape_string('/web_root/images/uploads/');
 
-			$db = Database::instance();
+
+
+			$db = Database::instance('default');
 			$sql = "INSERT INTO Images
 								(name, url, path)
 							VALUES

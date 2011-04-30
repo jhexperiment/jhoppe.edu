@@ -1,4 +1,4 @@
-Options +FollowSymlinks
+Options +FollowSymlinks -Indexes
 RewriteEngine on
 RewriteBase /
 
@@ -6,7 +6,7 @@ RewriteBase /
 #RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^(index.php.*|images.*|css.*|js.*) - [PT,QSA,L]
-#RewriteRule ^(/index.php) - [PT,L]
+#RewriteRule ^(.*/.*) - [PT,L]
 #RewriteRule index\.php index.php [L]
 RewriteRule .* index.php?kohana_uri=$0 [PT,QSA,L]
 
