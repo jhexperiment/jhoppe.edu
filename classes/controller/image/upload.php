@@ -23,15 +23,21 @@ class Controller_Image_Upload extends Controller_Template {
 						$image_info['path'] = mysql_real_escape_string('/web_root/images/uploads/');
 
 
-
-						$db = Database::instance('default');
+						$ret = DB::insert('Images')
+											->columns(array_keys($image_info))
+											->values(array_values($image_info))
+											->execute();
+						$image_info['id'] = $ret[0];
+						/*
+							$db = Database::instance('default');
 						$sql = "INSERT INTO Images
 											(name, url, path)
 										VALUES
 											('{$image_info['name']}', '{$image_info['url']}', '{$image_info['path']}')";
 						list($index, $row_count) = $db->query(DATABASE::INSERT, $sql, FALSE);
-						$image_info['id'] = $index;
-						$image_info['icon'] = "{$image_info['url']}{$image_info['name']}";
+						*/
+						//$image_info['id'] = $index;
+						//$image_info['icon'] = "{$image_info['url']}{$image_info['name']}";
 						//return json_encode($image_info);
 						$this->template->success = "File uploaded successfully.";
 					}
