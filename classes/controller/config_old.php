@@ -18,17 +18,171 @@ class Controller_Config extends Controller_Template
 		}
 		
 		$this->init();
-
-		// view image
-		//$this->template = new View('config');
-		//$this->template->content = new View('config/image');
-		//$this->template->content->filelist = new View('config/image/filelist');
-		// view tutor
-		$this->template = new View('config');
-		$this->template->content = new View('config/tutor');
 		
+		$data = array();
+		switch ($_REQUEST['action'])
+		{
+			case 'get':
+				switch ($_REQUEST['type'])
+				{
+					case 'image':
+						$this->template->output = $this->getImage($_GET);
+						break;
+					case 'pupil':
+						$this->template->output = $this->getPupil($_GET);
+						break;
+					case 'tutor':
+						$this->template->output = $this->getTutor($_GET);
+						break;
+					case 'lesson':
+						$this->template->output = $this->getLesson($_GET);
+						break;
+					case 'lessonplan':
+						$this->template->output = $this->getLessonPlan($_GET);
+						break;
+					case 'class':
+						$this->template->output = $this->getClass($_GET);
+						break;
+					case 'session':
+						$this->template->output = $this->getSession($_GET);
+						break;
+				}
+				break;
 
-		
+			case 'get_list':
+				switch ($_REQUEST['type'])
+				{
+					case 'image_list':
+						$this->template->output = $this->getImageList();
+						break;
+					case 'pupil_list':
+						$this->template->output = $this->getPupilList();
+						break;
+					case 'tutor_list':
+						$this->template->output = $this->getTutorList();
+						break;
+					case 'lesson_list':
+						$this->template->output = $this->getLessonList();
+						break;
+					case 'lessonplan_list':
+						$this->template->output = $this->getLessonPlanList();
+						break;
+					case 'class_list':
+						$this->template->output = $this->getClassList();
+						break;
+					case 'session_list':
+						$this->template->output = $this->getSessionList();
+						break;
+				}
+				break;
+
+			case 'update':
+				switch ($_REQUEST['type'])
+				{
+					// Session
+					case 'update_session':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->updateSession($_POST);
+						break;
+					case 'add_session':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->addSession($_POST);
+						break;
+					case 'delete_session':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->deleteSession($_POST);
+						break;
+
+					// Pupil
+					case 'delete_pupil':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->deletePupil($_POST);
+						break;
+					case 'update_pupil':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->updatePupil($_POST);
+						break;
+					case 'add_pupil':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->addItem('Pupils', $_POST);
+						break;
+
+					// Tutor
+					case 'delete_tutor':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->deleteTutor($_POST);
+						break;
+					case 'update_tutor':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->updateTutor($_POST);
+						break;
+					case 'add_tutor':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->addItem('Tutors', $_POST);
+						break;
+
+					case 'delete_image':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->deleteImage($_POST);
+						break;
+
+					// Lesson
+					case 'update_lesson':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->updateLesson($_POST);
+						//$this->template->output = print_r($_POST,true);
+						break;
+					case 'add_lesson':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->addLesson($_POST);
+						break;
+					case 'delete_lesson':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->deleteLesson($_POST);
+						break;
+
+					// Lesson Plan
+					case 'add_lessonplan':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->addItem('LessonPlans', $_POST);
+						break;
+					case 'delete_lessonplan':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->deleteLessonPlan($_POST);
+						break;
+					case 'update_lessonplan':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->updateLessonPlan($_POST);
+						break;
+
+					// Class
+					case 'add_class':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->addItem('Classes', $_POST);
+						break;
+					case 'delete_class':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->deleteClass($_POST);
+						break;
+					case 'update_class':
+						unset($_POST['action'], $_POST['type']);
+						$this->template->output = $this->updateClass($_POST);
+						break;
+
+
+
+				}
+				break;
+
+			case 'image_upload':
+				$this->template->output = $this->uploadFile($_FILES['image_file']);
+				break;
+
+			default:
+				$this->template = new View('config');
+				$this->template->data = $data;
+				break;
+		}
 	}
 
 
