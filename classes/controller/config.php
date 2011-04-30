@@ -205,7 +205,7 @@ class Controller_Config extends Controller_Template
 		{
 			$image_info = array();
 
-			$image_info['name'] = $arrFiles['name'][$i];
+			$image_info['name'] = $file_info['name'];
 			$image_info['url'] = '/images/uploads/';
 			$image_info['path'] = '/web_root/images/uploads/';
 			//$image_info['url'] = mysql_real_escape_string('/images/uploads/');
