@@ -19,8 +19,10 @@ class Controller_Image_Upload extends Controller_Template {
 						$image_info = array();
 
 						$image_info['name'] = $arrFiles['name'][$i];
-						$image_info['url'] = mysql_real_escape_string('/images/uploads/');
-						$image_info['path'] = mysql_real_escape_string('/web_root/images/uploads/');
+						$image_info['url'] = '/images/uploads/';
+						$image_info['path'] = '/web_root/images/uploads/';
+						//$image_info['url'] = mysql_real_escape_string('/images/uploads/');
+						//$image_info['path'] = mysql_real_escape_string('/web_root/images/uploads/');
 
 
 						$ret = DB::insert('Images')
