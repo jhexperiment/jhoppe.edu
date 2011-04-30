@@ -7,7 +7,7 @@
   </head>
  
   <body>
-    <form name="formImageUpload" method="post" enctype="multipart/form-data" action="/config">
+    <form name="formImageUpload" method="post" enctype="multipart/form-data" action="/image_upload">
       <div class="vertSpacer"></div>
       <div id="imageUploadBox">
 	<div>
