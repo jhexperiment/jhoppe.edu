@@ -14,7 +14,7 @@ class Controller_Image_Upload extends Controller_Template {
 			for ($i = 0; $i < count($arrFiles['tmp_name']); $i++) {
 				if (preg_match('/.*(jpg|png|gif|jpeg)$/', $arrFiles['name'][$i])) {
 
-					if (move_uploaded_file($arrFiles['tmp_name'][$i], "images/{$arrFiles['name'][$i]}")) {
+					if (move_uploaded_file($arrFiles['tmp_name'][$i], "images/uploads/{$arrFiles['name'][$i]}")) {
 
 						$image_info = array();
 
