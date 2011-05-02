@@ -93,6 +93,20 @@ function getData(url, data_type, data, success_function)
 	});
 }
 
+function querySite(url, data, success_function)
+{
+	if (util.isEmpty(data['type'])) {
+		data['type'] = 'GET'
+	}
+	$.ajax(
+	{
+		'type': data['type'],
+		'url': url,
+		'data': data,
+		'success': success_function
+	});
+}
+
 function getDataList(url, data_type, data, success_function)
 {
 	data['action'] = 'get_list';

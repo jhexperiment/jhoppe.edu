@@ -1,191 +1,59 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Config extends Controller_Template
+class Controller_ConfigNewTemplate extends Controller_Template
 {
 	public $template = 'text';
 	private $_image_upload_dir;
 
-	public function init()
-	{
+	public function init() {
 		$this->_image_upload_dir = APPPATH . '/web_root/images/uploads/';
 	}
 
-	public function action_index()
-	{
+	public function action_index() {
 		session_start();
 		if ( ! $_SESSION['JH_LOGGED_IN']) {
 			Request::instance()->redirect('login');
 		}
 		
 		$this->init();
-		
-		$data = array();
-		switch ($_REQUEST['action'])
-		{
-			case 'get':
-				switch ($_REQUEST['type'])
-				{
-					case 'image':
-						$this->template->output = $this->getImage($_GET);
-						break;
-					case 'pupil':
-						$this->template->output = $this->getPupil($_GET);
-						break;
-					case 'tutor':
-						$this->template->output = $this->getTutor($_GET);
-						break;
-					case 'lesson':
-						$this->template->output = $this->getLesson($_GET);
-						break;
-					case 'lessonplan':
-						$this->template->output = $this->getLessonPlan($_GET);
-						break;
-					case 'class':
-						$this->template->output = $this->getClass($_GET);
-						break;
-					case 'session':
-						$this->template->output = $this->getSession($_GET);
-						break;
-				}
+
+		switch ($_REQUEST['action']) {
+			case 'getImage':
+				$this->template->output = $this->getImage($_GET['Images_id']);
+				break;
+			case 'getImageList':
+				$this->template->output = $this->getImageList($_GET['rootPath']);
+				break;
+			case 'getImagePage':
+				$this->template = new View('config/image');
+				$this->template->fileBrowser = new View('config/image/fileBrowser');
+				break;
+			case 'imageUpload':
+				$this->template->output = $this->uploadFile($_FILES['imageFile']);
 				break;
 
-			case 'get_list':
-				switch ($_REQUEST['type'])
-				{
-					case 'image_list':
-						$this->template->output = $this->getImageList();
-						break;
-					case 'pupil_list':
-						$this->template->output = $this->getPupilList();
-						break;
-					case 'tutor_list':
-						$this->template->output = $this->getTutorList();
-						break;
-					case 'lesson_list':
-						$this->template->output = $this->getLessonList();
-						break;
-					case 'lessonplan_list':
-						$this->template->output = $this->getLessonPlanList();
-						break;
-					case 'class_list':
-						$this->template->output = $this->getClassList();
-						break;
-					case 'session_list':
-						$this->template->output = $this->getSessionList();
-						break;
-				}
-				break;
-
-			case 'update':
-				switch ($_REQUEST['type'])
-				{
-					// Session
-					case 'update_session':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->updateSession($_POST);
-						break;
-					case 'add_session':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->addSession($_POST);
-						break;
-					case 'delete_session':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->deleteSession($_POST);
-						break;
-
-					// Pupil
-					case 'delete_pupil':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->deletePupil($_POST);
-						break;
-					case 'update_pupil':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->updatePupil($_POST);
-						break;
-					case 'add_pupil':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->addItem('Pupils', $_POST);
-						break;
-
-					// Tutor
-					case 'delete_tutor':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->deleteTutor($_POST);
-						break;
-					case 'update_tutor':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->updateTutor($_POST);
-						break;
-					case 'add_tutor':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->addItem('Tutors', $_POST);
-						break;
-
-					case 'delete_image':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->deleteImage($_POST);
-						break;
-
-					// Lesson
-					case 'update_lesson':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->updateLesson($_POST);
-						//$this->template->output = print_r($_POST,true);
-						break;
-					case 'add_lesson':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->addLesson($_POST);
-						break;
-					case 'delete_lesson':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->deleteLesson($_POST);
-						break;
-
-					// Lesson Plan
-					case 'add_lessonplan':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->addItem('LessonPlans', $_POST);
-						break;
-					case 'delete_lessonplan':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->deleteLessonPlan($_POST);
-						break;
-					case 'update_lessonplan':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->updateLessonPlan($_POST);
-						break;
-
-					// Class
-					case 'add_class':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->addItem('Classes', $_POST);
-						break;
-					case 'delete_class':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->deleteClass($_POST);
-						break;
-					case 'update_class':
-						unset($_POST['action'], $_POST['type']);
-						$this->template->output = $this->updateClass($_POST);
-						break;
-
-
-
-				}
-				break;
-
-			case 'image_upload':
-				$this->template->output = $this->uploadFile($_FILES['image_file']);
+			case 'newFolder':
+				$this->template->output = $this->newFolder($_GET);
 				break;
 
 			default:
-				$this->template = new View('config');
-				$this->template->data = $data;
+				// view image
+				$this->template = new View('configNewTemplate');
+				//$this->template->content = new View('config/image');
+				//$this->template->content->filelist = new View('config/image/fileBrowser');
+
+				// view tutor
+				//$this->template = new View('config');
+				//$this->template->content = new View('config/tutor');
 				break;
 		}
+
+		
+
+		
 	}
 
-
+	
 	
 	private function addItem($table, $info)
 	{
@@ -559,14 +427,73 @@ class Controller_Config extends Controller_Template
 
 	// Image
 
-	private function getImageList()
+	private function getImage($Images_id)
 	{
-		$db = Database::instance();
-		$sql = "SELECT i.*, CONCAT(i.url, i.name) AS icon
-						FROM Images AS i";
-		$ret = $db->query(DATABASE::SELECT, $sql, FALSE);
+		$ret = DB::select(array(new Database_Expression('CONCAT(url,name)'), 'icon'),
+											'Images.*')
+								->from('Images')
+								->where('id', '=', $Images_id)
+								->execute();
+		$info = null;
+		if ($ret->count() > 0) {
+			$info = $ret->as_array();
+			$info = $info[0];
+		}
+		return json_encode($info);
+	}
 
-		return json_encode($ret->as_array());
+	private function getImageList($rootPath = '/images/')
+	{
+
+		$list = array('rootPath' => $rootPath);
+
+		// folder list
+		$ret = DB::select(new Database_Expression('DISTINCT url'))
+							->from('Images')
+							->where('url', 'LIKE', "$rootPath%")
+							->execute();
+		$folderList = $ret->as_array();
+		$foundFolders = array();
+		foreach ($folderList as $folder) {
+
+			$folderName = str_replace($rootPath, '', $folder['url']);
+			$folderName = explode('/', $folderName);
+			$folderName = array_shift($folderName);
+			$folder = array(
+				'type' => 'folder',
+				'rootPath' => $folder['url'],
+				'name' => $folderName
+			);
+			if ( ! empty($folderName) && empty($foundFolders[$folderName]) ) {
+				$foundFolders[$folderName] = $folder;
+			}
+		}
+		$folderList = array();
+		foreach ($foundFolders as $name => $folder) {
+			$folderList[] = $folder;
+		}
+
+		$list['folderList'] = $folderList;
+
+		// file list
+		$ret = DB::select()
+							->from('Images')
+							->where('url', '=', $rootPath)
+							->execute();
+		$fileList = $ret->as_array();
+		foreach ($fileList as $file) {
+			$file = array(
+				'type' => 'file',
+				'id' => $file['id'],
+				'name' => $file['name']
+			);
+			$list['fileList'][] = $file;
+		}
+
+		
+
+		
+		return json_encode($list);
 	}
 
 	private function deleteImage($image_info)

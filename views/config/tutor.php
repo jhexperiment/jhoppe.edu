@@ -8,8 +8,8 @@
 			</div>
 			
 		</td>
-		<td id="imageContent">
-			<div id="imageMenu">
+		<td id="tutorContent">
+			<div id="tutorMenu">
 				<div class="menuLeftItem">&nbsp;</div>
 				<div class="menuLeftItem">File</div>
 				<div class="menuLeftItem">Edit</div
@@ -19,20 +19,17 @@
 				<div class="menuRightItem">&nbsp;</div>
 				<div class="menuRightItem">Right Menu</div>
 			</div>
-			<div id="imageThumbnail">
-				<img alt="imageThumbnail" src="">
-			</div>
 			<table>
 				<tr>
-					<th>Name:</th>
+					<th>First Name:</th>
 					<td><input type="text"></td>
 				</tr>
 				<tr>
-					<th>Url:</th>
+					<th>Middle Name:</th>
 					<td><input type="text"></td>
 				</tr>
 				<tr>
-					<th>Path:</th>
+					<th>Last Name:</th>
 					<td><input type="text"></td>
 				</tr>
 			</table>
