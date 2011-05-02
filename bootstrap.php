@@ -73,7 +73,12 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
  * Execute the main request. A source of the URI can be passed, eg: $_SERVER['PATH_INFO'].
  * If no source is specified, the URI will be automatically detected.
  */
-echo Request::instance()
-	->execute()
-	->send_headers()
-	->response;
+try {
+	echo Request::instance()
+		->execute()
+		->send_headers()
+		->response;
+}
+catch (Exception $e) {
+	Request::instance()->redirect('login');
+}
