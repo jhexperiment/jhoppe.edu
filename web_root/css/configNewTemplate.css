@@ -158,16 +158,21 @@ select {
 }
 
 #menuBar .currentMenuBarItem {
-	background-color: #0099CC;
+	background-color: #21b085;
 	color: #FFFFFF;
 }
 
 #content {
 	height: 500px;
 
-	border-top: 5px solid #0099CC;
-	border-bottom: 5px solid #0099CC;
-	border-left: 5px solid #0099CC;
+	border-top: 5px solid #21b085;
+	border-bottom: 5px solid #21b085;
+	border-left: 5px solid #21b085;
+	border-right: 5px solid #21b085;
+
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
 
 	background-color: #FFFFFF;
 }
