@@ -19,7 +19,9 @@
 			<div class="appNavLeftItem">&nbsp;</div>
 			<div id="pupilNavItem" class="appNavLeftItem">Pupil</div>
 			<div id="tutorNavItem" class="appNavLeftItem">Tutor</div>
-			<div id="configNavItem" class="appNavLeftItem">Config</div>
+			<div id="configNavItem" class="currentNavItem appNavLeftItem">Config</div>
+			<div id="configNavItem" class="appNavLeftItem">Reports</div>
+			<div id="configNavItem" class="appNavLeftItem">Flash Cards</div>
 			<div class="appNavLeftItem">&nbsp;</div>
 			<div id="moreNavItem" class="appNavLeftItem">More</div>
 

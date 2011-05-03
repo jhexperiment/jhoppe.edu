@@ -55,8 +55,6 @@ var fileBrowser = {
 			$("#imageContent #imageUrl").val(info.url);
 			$("#imageContent #imagePath").val(info.path);
 			$("#imageContent #currentLoadedImageId").val(info.id);
-
-			
 		});
 	},
 
@@ -124,6 +122,7 @@ var fileBrowser = {
 					var html  = '<div class="imageListItem imageFile">'
 										+		'<input class="id" type="hidden" value="' + this.id + '"/>'
 										+		'<input class="type" type="hidden" value="' + this.type + '"/>'
+										+		'<img src="' + imageList.rootPath + this.name + '"/>'
 										+		this.name
 										+ "</div>\n";
 					var htmlDom = $(html);

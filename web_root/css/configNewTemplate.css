@@ -12,6 +12,21 @@ html, body {
 	
 }
 
+body {
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.20, rgb(243,190,116)),
+    color-stop(0.80, rgb(138,128,158))
+	);
+	background-image: -moz-linear-gradient(
+			center bottom,
+			rgb(243,190,116) 20%,
+			rgb(138,128,158) 80%
+	);
+}
+
 input {
 	margin: 0px;
 	padding: 0px;
@@ -97,6 +112,11 @@ select {
 	border-bottom: 1px solid black;
 }
 
+#appNavBar .currentNavItem {
+	background-color: blue;
+	color: #AAAAAA;
+}
+
 #appNavBar .appNavLeftItem,
 #appNavBar .appNavRightItem {
 	padding: 5px 5px 5px 5px;
@@ -149,6 +169,7 @@ select {
 	border-bottom: 5px solid #0099CC;
 	border-left: 5px solid #0099CC;
 
+	background-color: #FFFFFF;
 }
 
 #footer {
@@ -234,7 +255,7 @@ select {
 
 
 #imageBrowser {
-	height: 800px;
+	max-height: 800px;
 
 	padding: 0px 1px 0px 1px;
 	margin: 5px 0px 5px 0px;
@@ -279,7 +300,8 @@ select {
 
 
 #imageBrowser #imageList {
-	height: 750px;
+	max-height: 750px;
+	min-height: 425px;
 }
 
 #imageList .imageListItem:hover {
@@ -300,6 +322,14 @@ select {
 #imageList .imageFile {
 
 }
+
+#imageList .imageFile img {
+
+	height: 20px;
+
+	float: left;
+}
+
 
 #imageContent {
 	width: 100%;
