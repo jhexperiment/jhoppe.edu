@@ -29,7 +29,7 @@
 			<div id="userNavItem" class="appNavRightItem">user@jhoppe.jhexperiment.com</div>
 		</div>
 		<div id="header">
-			<div id="logo"><img alt="logo" src="/images/logo.jpg"/></div>
+			<div id="logo"><img alt="logo" src="/images/Logo-Arora2.jpg"/></div>
 			<div id="searchBar">
 				<input type="text"/>
 				<input type="button" value="Search Images"/>

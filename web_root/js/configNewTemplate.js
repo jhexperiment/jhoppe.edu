@@ -19,7 +19,8 @@ var fileBrowser = {
 	},
 
 	'parentDirClick': function() {
-		$("#imageContent").hide();
+		$("#imageContent .folderView").hide();
+		$("#imageContent .fileView").hide();
 		
 		var rootPath = $('#imageBrowser #browserAddressBar input').val();
 		rootPath = rootPath.split('/');
@@ -41,35 +42,71 @@ var fileBrowser = {
 			'Images_id': Images_id
 		};
 		querySite('configNewTemplate', data, function(responseText) {
+/*
 			$("#imageContent #imageThumbnail img").attr('src', '');
 			$("#imageContent #imageFilename").val('');
 			$("#imageContent #imageUrl").val('');
 			$("#imageContent #imagePath").val('');
 			$("#imageContent #currentLoadedImageId").val('');
-
+*/
 			var info = eval('(' + responseText + ')');
-			$("#imageContent").show();
-
+			
 			$("#imageContent #imageThumbnail img").attr('src', info.icon);
 			$("#imageContent #imageFilename").val(info.name);
 			$("#imageContent #imageUrl").val(info.url);
 			$("#imageContent #imagePath").val(info.path);
 			$("#imageContent #currentLoadedImageId").val(info.id);
+			
+			$("#imageContent .folderView").hide();
+			$("#imageContent .fileView").show();
+
 		});
 	},
 
-	'imageFolderClick': function () {
-		$("#imageContent").hide();
+	'imageFolderClick': function() {
+		
+		$("#imageContent #folderAttributes input").val($(this).text());
+		$("#imageContent .fileView").hide();
+		$("#imageContent .folderView").show();
+		
+	},
+
+	'imageFolderDblClick': function () {
+		$("#imageContent .folderView").hide();
+		$("#imageContent .fileView").hide();
 				
 		fileBrowser.getFileList($(this).children('.rootPath').val());
 		var tmp = '';
+	},
+
+	'insertFileItem': function(fileInfo) {
+		var html  = '<div class="imageListItem imageFile">'
+							+		'<input class="id" type="hidden" value="' + fileInfo.id + '"/>'
+							+		'<input class="type" type="hidden" value="' + fileInfo.type + '"/>'
+							+		'<img src="' + fileInfo.rootPath + fileInfo.name + '"/>'
+							+		fileInfo.name
+							+ "</div>\n";
+		var htmlDom = $(html);
+		htmlDom.click(fileBrowser.imageFileClick);
+		$("#imageBrowser #imageList").append(htmlDom);
+	},
+	'insertFolderItem': function(folderInfo) {
+		var html  = '<div class="imageListItem imageFolder">'
+							+		'<input class="rootPath" type="hidden" value="' + folderInfo.rootPath + '"/>'
+							+		'<input class="type" type="hidden" value="' + folderInfo.type + '"/>'
+							+		folderInfo.name
+							+ "</div>\n";
+		var htmlDom = $(html);
+		htmlDom.dblclick(fileBrowser.imageFolderDblClick);
+		htmlDom.click(fileBrowser.imageFolderClick);
+		$("#imageBrowser #imageList").append(htmlDom);
 	},
 	
 	'getFileList': function (rootPath) {
 		if ( util.isEmpty(rootPath) ) {
 			rootPath = '/images/';
 		}
-
+		$("#imageBrowser #rootPath").val(rootPath);
 		$("#imageBrowser #browserAddressBar input").val(rootPath);
 
 		var data = {
@@ -105,29 +142,15 @@ var fileBrowser = {
 			});
 
 			if (! util.isEmpty(imageList.folderList) ) {
-				$.each(imageList.folderList, function(index) {
-					var html  = '<div class="imageListItem imageFolder">'
-										+		'<input class="rootPath" type="hidden" value="' + this.rootPath + '"/>'
-										+		'<input class="type" type="hidden" value="' + this.type + '"/>'
-										+		this.name
-										+ "</div>\n";
-					var htmlDom = $(html);
-					htmlDom.click(fileBrowser.imageFolderClick);
-					$("#imageBrowser #imageList").append(htmlDom);
+				$.each(imageList.folderList, function() {
+					fileBrowser.insertFolderItem(this);
 				});
 			}
 
 			if (! util.isEmpty(imageList.fileList) ) {
 				$.each(imageList.fileList, function() {
-					var html  = '<div class="imageListItem imageFile">'
-										+		'<input class="id" type="hidden" value="' + this.id + '"/>'
-										+		'<input class="type" type="hidden" value="' + this.type + '"/>'
-										+		'<img src="' + imageList.rootPath + this.name + '"/>'
-										+		this.name
-										+ "</div>\n";
-					var htmlDom = $(html);
-					htmlDom.click(fileBrowser.imageFileClick);
-					$("#imageBrowser #imageList").append(htmlDom);
+					this.rootPath = imageList.rootPath;
+					fileBrowser.insertFileItem(this);
 				});
 			}
 		});
@@ -185,11 +208,29 @@ var thisPage =
 				 }			 
 			});
 
-			fileBrowser.getFileList();
+			//fileBrowser.getFileList();
 		});
 	},
 
 	'newFolder': function() {
+		var data = {
+			'type': 'POST',
+			'action': 'newFolder',
+			'name': 'folder',
+			'rootPath': $("#imageBrowser #rootPath").val()
+		}
+
+		querySite('configNewTemplate', data, function() {
+			var html  = '<div class="imageListItem imageFolder">'
+								+		'<input class="rootPath" type="hidden" value="' + data.rootPath + '"/>'
+								+		'<input class="type" type="hidden" value="folder"/>'
+								+		data.name
+								+ "</div>\n";
+			var htmlDom = $(html);
+			htmlDom.dblclick(fileBrowser.imageFolderDblClick);
+			htmlDom.click(fileBrowser.imageFolderClick);
+			htmlDom.insertAfter($(".imageFolder").splice(0,1));
+		});
 
 		var tmp='';
 	},
@@ -199,6 +240,7 @@ var thisPage =
 							+		'<form action="configNewTemplate" method="POST" type="multipart/form-data">'
 							+			'<input type="hidden" id="action" name="action" value="imageUpload">'
 							+			'<input type="hidden" id="backgroundLock" value="0">'
+							+			'<input type="hidden" name="rootPath" value="' + $("#imageBrowser #rootPath").val() + '">'
 							+			'<input type="file" id="imageFile" name="imageFile">'
 							+		'</form>'
 							+	'</div>';
@@ -236,6 +278,9 @@ var thisPage =
 						//this_tab_obj_ref.append(image_info);
 						var tmp = '';
 					}
+
+					$("#popupBackground").remove();
+					$("#imageUploadBackground").remove();
 				}
 			});
 		});
@@ -260,9 +305,8 @@ var thisPage =
 
 	'displayImageListMenu': function() {
 		var menuItemList = [
-			{'name': 'New folder', 'action': thisPage.newFolder},
-			{'name': 'Upload file', 'action': thisPage.uploadFile},
-			{'name': 'Menu 3', 'action': function(){}}
+			//{'name': 'New folder', 'action': thisPage.newFolder},
+			{'name': 'Upload file', 'action': thisPage.uploadFile}
 		];
 
 		thisPage.displayPopupMenu(this, menuItemList);

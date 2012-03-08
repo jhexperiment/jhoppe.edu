@@ -5,8 +5,30 @@ RewriteBase /
 #RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^(index.php.*|images.*|css.*|js.*) - [PT,QSA,L]
 #RewriteRule ^(.*/.*) - [PT,L]
 #RewriteRule index\.php index.php [L]
-RewriteRule .* index.php?kohana_uri=$0 [PT,QSA,L]
+
+#RewriteRule ^(index.php.*|images.*|css.*|js.*) - [PT,QSA,L]
+#RewriteRule .* index.php?kohana_uri=$0 [PT,QSA,L]
+
+# Protect application and system files from being viewed
+#RewriteCond $1 ^(application|system|modules)
+
+# Rewrite to index.php/access_denied/URL
+#RewriteRule ^(.*)$ index.php/access_denied/$1 [PT,L]
+
+# Allow these directories and files to be displayed directly:
+# - index.php (DO NOT FORGET THIS!)
+# - robots.txt
+# - favicon.ico
+# - Any file inside of the images/, js/, or css/ directories
+RewriteCond $1 ^(index\.php|robots\.txt|favicon\.ico|images|js|css)
+
+# No rewriting
+RewriteRule ^(.*)$ - [PT,L]
+
+
+# Rewrite all other URLs to index.php/URL
+RewriteRule ^(.*)$ index.php/$1 [PT,L]
+
 

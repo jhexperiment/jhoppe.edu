@@ -2,7 +2,7 @@
 
 class Controller_Login extends Controller_Template {
 	public $template = 'login';
-	private $redirectTo = 'config';
+	private $redirectTo = 'tutor';
 
 	public function action_index() {
 		session_start();

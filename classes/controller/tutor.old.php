@@ -4,16 +4,19 @@ class Controller_Tutor extends Controller_Template
 {
 	public $template = 'text';
 
-	public function action_index() {
+	public function action_index()
+	{
 		session_start();
 		if ( ! $_SESSION['JH_LOGGED_IN']) {
 			Request::instance()->redirect('login');
 		}
 		
 
-		switch ($_REQUEST['action']) {
+		switch ($_REQUEST['action'])
+		{
 			case 'get_list':
-				switch ($_GET['type']) {
+				switch ($_GET['type'])
+				{
 					case 'current_lesson':
 						$this->template->output = $this->getCurrentLesson($_GET['session_hash']);
 						break;
@@ -24,7 +27,8 @@ class Controller_Tutor extends Controller_Template
 				break;
 
 			case 'update':
-				switch ($_POST['type']) {
+				switch ($_POST['type'])
+				{
 					case 'update_answer':
 						$this->template->output = $this->answerQuestion($_POST);
 						break;
@@ -36,7 +40,8 @@ class Controller_Tutor extends Controller_Template
 				break;
 
 			case 'set':
-				switch ($_REQUEST['type']) {
+				switch ($_REQUEST['type'])
+				{
 					case 'current_image':
 						$this->template->output = $this->setSessionImage($_REQUEST['session_hash'], $_REQUEST['Lesson_ImageQuestions_id']);
 						break;

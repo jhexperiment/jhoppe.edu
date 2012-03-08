@@ -216,7 +216,7 @@ select {
 #popupMenu {
 	padding: 5px 5px 5px 5px;
 
-	background-color: #AAAAAA;
+	background-color: #3AADFA;
 
 	index: 101;
 
@@ -226,7 +226,7 @@ select {
 }
 
 #popupMenu .popupMenuItem:hover {
-	background-color: #999999;
+	background-color: #3298DB;
 }
 
 #popupMenu .popupMenuItem {
@@ -247,9 +247,9 @@ select {
 }
 
 #fileUploadMenu {
-	padding: 5px 5px 5px 5px;
+	padding: 3px 3px 3px 3px	;
 
-	background-color: #AAAAAA;
+	background-color: #3AADFA;
 
 	index: 201;
 
@@ -299,7 +299,7 @@ select {
 
 #imageListMenu .menuLeftItem,
 #imageListMenu .menuRightItem{
-	border-top: 3px solid #0099CC;
+	border-top: 3px solid #3AADFA;
 	padding: 5px;
 }
 
@@ -339,6 +339,11 @@ select {
 #imageContent {
 	width: 100%;
 
+	
+}
+
+#imageContent .folderView,
+#imageContent .fileView {
 	display: none;
 }
 

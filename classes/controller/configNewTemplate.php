@@ -12,7 +12,7 @@ class Controller_ConfigNewTemplate extends Controller_Template
 	public function action_index() {
 		session_start();
 		if ( ! $_SESSION['JH_LOGGED_IN']) {
-			Request::instance()->redirect('login');
+			//Request::instance()->redirect('login');
 		}
 		
 		$this->init();
@@ -29,11 +29,15 @@ class Controller_ConfigNewTemplate extends Controller_Template
 				$this->template->fileBrowser = new View('config/image/fileBrowser');
 				break;
 			case 'imageUpload':
-				$this->template->output = $this->uploadFile($_FILES['imageFile']);
+				$data = array(
+					'fileInfo' => $_FILES['imageFile'],
+					'rootPath' => $_POST['rootPath']
+				);
+				$this->template->output = $this->uploadFile($data);
 				break;
 
 			case 'newFolder':
-				$this->template->output = $this->newFolder($_GET);
+				$this->template->output = $this->newFolder($_POST);
 				break;
 
 			default:
@@ -53,6 +57,9 @@ class Controller_ConfigNewTemplate extends Controller_Template
 		
 	}
 
+	private function newFolder($data) {
+	 return 'blah' . mkdir($data['rootPath'] . $data['name']);
+	}
 	
 	
 	private function addItem($table, $info)
@@ -66,16 +73,19 @@ class Controller_ConfigNewTemplate extends Controller_Template
 		return $id;
 	}
 
-	private function uploadFile($file_info)
+	private function uploadFile($data)
 	{
-		if (preg_match('/.*(jpg|png|gif|jpeg)$/', $file_info['name'])) {
+		if (preg_match('/.*(zip)$/', $data['fileInfo']['name'])) {
+			
+		}
+		else if (preg_match('/.*(jpg|png|gif|jpeg)$/', $data['fileInfo']['name'])) {
 
-			if (move_uploaded_file($file_info['tmp_name'], $this->_image_upload_dir . $file_info['name'])) {
+			if (move_uploaded_file($data['fileInfo']['tmp_name'], $this->_image_upload_dir . $data['fileInfo']['name'])) {
 				$image_info = array();
 
-				$image_info['name'] = $file_info['name'];
-				$image_info['url'] = '/images/uploads/';
-				$image_info['path'] = '/web_root/images/uploads/';
+				$image_info['name'] = $data['fileInfo']['name'];
+				$image_info['url'] = $data['rootPath'];
+				$image_info['path'] = '/web_root' . $image_info['url'];
 				
 				$ret = DB::insert('Images')
 									->columns(array_keys($image_info))
@@ -431,7 +441,7 @@ class Controller_ConfigNewTemplate extends Controller_Template
 	{
 		$ret = DB::select(array(new Database_Expression('CONCAT(url,name)'), 'icon'),
 											'Images.*')
-								->from('Images')
+								->from('ImagesView')
 								->where('id', '=', $Images_id)
 								->execute();
 		$info = null;
@@ -448,11 +458,12 @@ class Controller_ConfigNewTemplate extends Controller_Template
 		$list = array('rootPath' => $rootPath);
 
 		// folder list
-		$ret = DB::select(new Database_Expression('DISTINCT url'))
-							->from('Images')
-							->where('url', 'LIKE', "$rootPath%")
+		$ret = DB::select()
+							->from('ImagesFoldersView')
+							->where('rootPath', '=', $rootPath)
 							->execute();
 		$folderList = $ret->as_array();
+		/*
 		$foundFolders = array();
 		foreach ($folderList as $folder) {
 
@@ -472,12 +483,12 @@ class Controller_ConfigNewTemplate extends Controller_Template
 		foreach ($foundFolders as $name => $folder) {
 			$folderList[] = $folder;
 		}
-
+		*/
 		$list['folderList'] = $folderList;
 
 		// file list
 		$ret = DB::select()
-							->from('Images')
+							->from('ImagesView')
 							->where('url', '=', $rootPath)
 							->execute();
 		$fileList = $ret->as_array();
